@@ -6,6 +6,7 @@
   "author": "Luiz Felipe <luizfelipekirchbaner@gmail.com>",
   "private": true,
   "scripts": {
+    "start": "quasar dev",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
