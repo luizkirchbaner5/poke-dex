@@ -8,6 +8,26 @@
       <q-input filled v-model="search" label="Digite nome pokemon" />
       <q-btn color="primary" label="Pesquisar" @click="getPokemon" />
     </div>
+    <div class="row justify-between absolute full-width container-arrows">
+      <q-icon
+        name="far fa-arrow-alt-circle-left"
+        color="primary"
+        size="50px"
+        class="q-ml-sm cursor-pointer"
+        @click="getPokemon(id - 1)"
+      >
+      <q-tooltip>Anterior</q-tooltip>
+      </q-icon>
+      <q-icon
+        name="far fa-arrow-alt-circle-right"
+        color="primary"
+        size="50px"
+        class="q-mr-sm cursor-pointer"
+        @click="getPokemon(id + 1)"
+      >
+      <q-tooltip>Próximo</q-tooltip>
+      </q-icon>
+    </div>
   </q-page>
 </template>
 
@@ -18,6 +38,7 @@ export default {
 
   data() {
     return {
+      id: null,
       name: "",
       url: "",
       search: "ditto",
@@ -29,12 +50,14 @@ export default {
   },
 
   methods: {
-    getPokemon() {
-      api.get(`/pokemon/${this.search}/`)
+    getPokemon(id) {
+      api.get(id > 0 ? `/pokemon/${id}/` : `/pokemon/${this.search}/`)
       .then((response) => {
         // handle success
         console.log(response);
+        this.id = response.data.id;
         this.name = response.data.name;
+        this.search = response.data.name;
         this.url = response.data.sprites.other.dream_world.front_default;
         this.triggerPositive();
       })
@@ -65,3 +88,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.container-arrows {
+
+}
+</style>
