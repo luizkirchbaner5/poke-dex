@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
     <div class="column items-center">
       <h2>{{ name }}</h2>
-      <q-img :src="url" :ratio="1" width="250px" />
+      <q-img :src="url" width="250px" />
     </div>
     <div class="row justify-around full-width">
       <q-input filled v-model="search" label="Digite nome pokemon" />
@@ -36,15 +36,32 @@ export default {
         console.log(response);
         this.name = response.data.name;
         this.url = response.data.sprites.other.dream_world.front_default;
+        this.triggerPositive();
       })
       .catch((error) => {
         // handle error
-        console.log(error);
+        this.triggerNegative();
       })
       .then(() => {
         // always executed
       });
-    }
+    },
+
+    triggerPositive () {
+      this.$q.notify({
+        type: 'positive',
+        position: 'top',
+        message: `Pokemon encontrado ;)`
+      })
+    },
+
+    triggerNegative () {
+      this.$q.notify({
+        type: 'negative',
+        position: 'top',
+        message: `Ocorreu um erro, tente novamente.`
+      })
+    },
   }
 }
 </script>
