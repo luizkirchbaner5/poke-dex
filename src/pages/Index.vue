@@ -88,8 +88,3 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-.container-arrows {
-
-}
-</style>
